@@ -14,127 +14,83 @@ in
 {
   disko.devices = {
     disk = {
-      sda = {
+      main-disk = {
         type = "disk";
-        device = builtins.elemAt disks 0;
+        device = "/dev/sda";
         content = {
           type = "gpt";
           partitions = {
             ESP = {
-              # name = "ESP";
-              start = "1MiB";
-              end = "1G";
+              size = "500M";
               type = "EF00";
               content = {
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
+                mountOptions = [ "umask=0077" ];
+              };
+            };
+            swap = {
+              size = "8G";
+              content = {
+                type = "swap";
+                randomEncryption = true;
               };
             };
             root = {
-              # name = "root";
-              start = "9G";
-              end = "100%";
+              size = "100%";
               content = {
                 type = "btrfs";
                 extraArgs = [ "-f" ]; # Override existing partition
-                subvolumes =
-                  if (number_of_disks == 1) then
-                    {
-                      "@" = { };
-                      "@/root" = {
-                        mountpoint = "/";
-                        mountOptions = [
-                          "compress=zstd"
-                          "noatime"
-                        ];
-                      };
-                      "@/home" = {
-                        mountpoint = "/home";
-                        mountOptions = [ "compress=zstd" ];
-                      };
-                      "@/nix" = {
-                        mountpoint = "/nix";
-                        mountOptions = [
-                          "compress=zstd"
-                          "noatime"
-                        ];
-                      };
-                      "@/persist" = {
-                        mountpoint = "/persist";
-                        mountOptions = [
-                          "compress=zstd"
-                          "noatime"
-                        ];
-                      };
-                      "@/var-lib" = {
-                        mountpoint = "/var/lib";
-                        mountOptions = [
-                          "compress=zstd"
-                          "noatime"
-                        ];
-                      };
-                      "@/var-log" = {
-                        mountpoint = "/var/log";
-                        mountOptions = [
-                          "compress=zstd"
-                          "noatime"
-                        ];
-                      };
-                      "@/var-tmp" = {
-                        mountpoint = "/var/tmp";
-                        mountOptions = [
-                          "compress=zstd"
-                          "noatime"
-                        ];
-                      };
-                    }
-                  else
-                    {
-                      "@" = { };
-                      "@/root" = {
-                        mountpoint = "/";
-                        mountOptions = [
-                          "compress=zstd"
-                          "noatime"
-                        ];
-                      };
-                      "@/nix" = {
-                        mountpoint = "/nix";
-                        mountOptions = [
-                          "compress=zstd"
-                          "noatime"
-                        ];
-                      };
-                      "@/persist" = {
-                        mountpoint = "/persist";
-                        mountOptions = [
-                          "compress=zstd"
-                          "noatime"
-                        ];
-                      };
-                      "@/var-lib" = {
-                        mountpoint = "/var/lib";
-                        mountOptions = [
-                          "compress=zstd"
-                          "noatime"
-                        ];
-                      };
-                      "@/var-log" = {
-                        mountpoint = "/var/log";
-                        mountOptions = [
-                          "compress=zstd"
-                          "noatime"
-                        ];
-                      };
-                      "@/var-tmp" = {
-                        mountpoint = "/var/tmp";
-                        mountOptions = [
-                          "compress=zstd"
-                          "noatime"
-                        ];
-                      };
-                    };
+                subvolumes = {
+                  "@" = { };
+                  "@/root" = {
+                    mountpoint = "/";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
+                  "@/home" = {
+                    mountpoint = "/home";
+                    mountOptions = [ "compress=zstd" ];
+                  };
+                  "@/nix" = {
+                    mountpoint = "/nix";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
+                  "@/persist" = {
+                    mountpoint = "/persist";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
+                  "@/var-lib" = {
+                    mountpoint = "/var/lib";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
+                  "@/var-log" = {
+                    mountpoint = "/var/log";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
+                  "@/var-tmp" = {
+                    mountpoint = "/var/tmp";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
+                };
               };
             };
           };
