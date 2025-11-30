@@ -31,15 +31,6 @@ in
                 mountpoint = "/boot";
               };
             };
-            swap = {
-              # name = "swap";
-              start = "1G";
-              end = "9G";
-              content = {
-                type = "swap";
-                randomEncryption = true;
-              };
-            };
             root = {
               # name = "root";
               start = "9G";
