@@ -22,12 +22,6 @@
     ];
   };
 
-  programs.git = {
-    enable = true;
-    userName = "Ryan Harris";
-    userEmail = "ryan@it-clowd.top";
-  };
-
   services.openssh = {
     enable = true;
     settings = {
