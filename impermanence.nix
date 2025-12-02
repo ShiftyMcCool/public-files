@@ -40,7 +40,7 @@
 
   # machine id - setting as a persistent file results in errors.
   # so we use this config option instead:
-  environment.etc.machine-id.source = /persist/etc/machine-id;
+  #environment.etc.machine-id.source = /persist/etc/machine-id;
 
   # security.sudo.extraConfig = ''
   #   # rollback results in sudo lectures after each reboot
