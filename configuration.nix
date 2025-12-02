@@ -4,7 +4,11 @@
   pkgs,
   ...
 }:
-
+let
+  impermanence = builtins.fetchTarball {
+    url = "https://github.com/nix-community/impermanence/archive/master.tar.gz";
+  };
+in
 {
   boot = {
     # kernelParams = [ "quiet" "loglevel=3" ];
@@ -22,10 +26,10 @@
   };
 
   imports = [ 
-./hardware-configuration.nix
-./disko-config.nix
-./impermanence.nix
-];
+    ./hardware-configuration.nix
+    "${impermanence}/nixos.nix"
+    ./impermanence.nix
+  ];
 
   environment.systemPackages = with pkgs; [
     git
