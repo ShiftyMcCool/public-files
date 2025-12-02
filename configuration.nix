@@ -21,7 +21,11 @@
     };
   };
 
-  imports = [ ./hardware-configuration.nix ];
+  imports = [ 
+./hardware-configuration.nix
+./disko-config.nix
+./impermanence.nix
+];
 
   environment.systemPackages = with pkgs; [
     git
