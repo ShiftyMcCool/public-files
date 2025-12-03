@@ -29,7 +29,7 @@ in
     ./hardware-configuration.nix
     "${impermanence}/nixos.nix"
     ./impermanence.nix
-    ./disko-config.nix
+    #./disko-config.nix
   ];
 
   environment.systemPackages = with pkgs; [
