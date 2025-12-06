@@ -27,9 +27,10 @@ in
 
   imports = [ 
     ./hardware-configuration.nix
-    "${impermanence}/nixos.nix"
-    ./impermanence.nix
-    #./disko-config.nix
+   "${builtins.fetchTarball "https://github.com/nix-community/disko/archive/master.tar.gz"}/module.nix"
+    ./disko-config.nix
+    #"${impermanence}/nixos.nix"
+    #./impermanence.nix
   ];
 
   environment.systemPackages = with pkgs; [
