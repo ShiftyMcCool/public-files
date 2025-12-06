@@ -14,12 +14,11 @@ in
     # kernelParams = [ "quiet" "loglevel=3" ];
     kernelParams = [ "quiet" ];
     loader = {
-      #efi.canTouchEfiVariables=true;
-      # systemd-boot.enable = true;
       grub = { 
           enable = true;
           devices = [ "nodev" ];
           efiSupport = true;
+          efiInstallAsRemovable = true;
       };
       timeout = 3;
     };
